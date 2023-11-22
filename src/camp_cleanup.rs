@@ -16,14 +16,10 @@ fn file_parser(file_name: String) -> Result<i32, Box<dyn Error>> {
         .split("\n")
         .into_iter()
         .filter(|line| *line != "")
-        .collect::<Vec<_>>()
-        .into_iter()
         .map(|pair| {
             let mut line = pair.split(",").into_iter();
             (line.next().unwrap(), line.next().unwrap())
         })
-        .collect::<Vec<_>>()
-        .into_iter()
         .map(|seats| {
             let mut first = seats.0.split("-").into_iter();
             let mut second = seats.1.split("-").into_iter();
@@ -38,7 +34,7 @@ fn file_parser(file_name: String) -> Result<i32, Box<dyn Error>> {
                 ),
             )
         })
-        // change for overlap
+        // .filter(||)
         .filter(|((a, b), (c, d))| a <= d && c <= b)
         .count();
 
